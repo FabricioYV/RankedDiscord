@@ -1,0 +1,34 @@
+# Configuración del servidor
+server:
+  name: "Keke Network"
+  ip: "keke.sparked.network"
+
+# Comandos para acceder a los servidores
+commands:
+  ranked: "/server keke1"
+  mixed: "/server mixed"
+
+# Configuración del sistema de compras
+store:
+  enabled: true
+  check-interval: 30  # segundos entre revisiones de compras
+  max-purchases-per-cycle: 10  # máximo de compras a procesar por ciclo
+
+# Mensajes informativos
+messages:
+  server_info: |
+    🎮 **Información del Servidor**
+    
+    **IP del Servidor:** `keke.sparked.network`
+    
+    **Servidores Disponibles:**
+    🏆 **Ranked:** `/server keke1`
+    🎯 **Mixed:** `/server mixed`
+    
+    ¡Únete y disfruta del mejor PvP competitivo!
+
+  ip_info: |
+    🌐 **IP del Servidor:** `keke.sparked.network`
+    
+    **Para jugar Ranked:** `/server keke1`
+    **Para jugar Mixed:** `/server mixed`

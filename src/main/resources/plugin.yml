@@ -1,0 +1,11 @@
+name: RankedDiscord
+version: '${project.version}'
+main: org.fabricioyv.RankedDiscord
+
+commands:
+  verify:
+    description: Genera un código para verificar tu cuenta con Discord
+    usage: /verify
+  setwelcome:
+    description: Permite a jugadores elegibles modificar su mensaje de bienvenida
+    usage: /setwelcome <mensaje>
