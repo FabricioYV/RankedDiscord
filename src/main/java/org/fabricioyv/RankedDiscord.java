@@ -19,13 +19,20 @@ public final class RankedDiscord extends JavaPlugin {
         saveDefaultConfig();
 
         DBManager = new DBManager();
-        DBManager.initializeDatabase(
+        boolean dbOk = DBManager.initializeDatabase(
                 getConfig().getString("database.host"),
                 getConfig().getInt("database.port"),
                 getConfig().getString("database.database"),
                 getConfig().getString("database.username"),
                 getConfig().getString("database.password")
         );
+
+        if (!dbOk) {
+            getLogger().severe("❌ No se pudo inicializar la base de datos. Deshabilitando RankedDiscord...");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
         //Initialize Discord Bot
         discordGetBot = new DiscordGetBot(this);
         discordGetBot.initialize(getConfig().getString("discord.token"));
