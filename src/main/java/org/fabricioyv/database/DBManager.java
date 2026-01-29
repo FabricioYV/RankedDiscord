@@ -13,7 +13,7 @@ import java.util.UUID;
 public class DBManager {
     private HikariDataSource dataSource;
 
-    public void initializeDatabase(String host, int port, String database, String username, String password) {
+    public boolean initializeDatabase(String host, int port, String database, String username, String password) {
         try {
             HikariConfig config = new HikariConfig();
 
@@ -29,10 +29,10 @@ public class DBManager {
             // CONFIGURACIONES MEJORADAS PARA EVITAR TIMEOUTS
             config.setMaximumPoolSize(8);           // Reducido de 10 a 8
             config.setMinimumIdle(2);               // Mínimo 2 conexiones activas
-            config.setConnectionTimeout(20000);     // Reducido a 20 segundos
-            config.setIdleTimeout(300000);          // 5 minutos (reducido de 600000)
-            config.setMaxLifetime(900000);          // 15 minutos (reducido de 1800000)
-            config.setLeakDetectionThreshold(30000); // Reducido a 30 segundos
+            config.setConnectionTimeout(20000);     // 20 segundos
+            config.setIdleTimeout(300000);          // 5 minutos
+            config.setMaxLifetime(900000);          // 15 minutos
+            config.setLeakDetectionThreshold(30000); // 30 segundos
 
             // PROPIEDADES ADICIONALES PARA ESTABILIDAD
             config.addDataSourceProperty("cachePrepStmts", "true");
@@ -54,6 +54,7 @@ public class DBManager {
             createTables();
 
             System.out.println("✅ Conexión a MySQL exitosa con pool configurado!");
+            return true;
 
         } catch (Exception e) {
             System.err.println("❌ Error conectando a MySQL:");
@@ -61,8 +62,13 @@ public class DBManager {
             System.err.println("Database: " + database);
             System.err.println("Usuario: " + username);
             e.printStackTrace();
+
+            // MUY IMPORTANTE: dejar claro que no hay pool inicializado
+            this.dataSource = null;
+            return false;
         }
     }
+
 
     private void testConnection() throws SQLException {
         int maxRetries = 3;
@@ -418,6 +424,9 @@ public class DBManager {
      * IMPORTANTE: Debe usarse con try-with-resources para cerrar automáticamente
      */
     public Connection getConnection() throws SQLException {
+        if (dataSource == null || dataSource.isClosed()) {
+            throw new SQLException("DataSource no inicializado. Revisa la configuración de la base de datos.");
+        }
         return dataSource.getConnection();
     }
 
