@@ -1,13 +1,14 @@
 # Configuración de la base de datos
 database:
-  host: "db-dtx-03.sparkedhost.us"
+  host: "db-mfl-01.apollopanel.com"
   port: 3306
-  database: "s181642_ranked"
-  username: "u181642_EmzxRextoT"
-  password: "X4^pijD5zUWpY5UCrYM=W2e!"
+  database: "s211319_ranked_db"
+  username: "u211319_Ad6KwoO4z0"
+  password: "ZuWzGA^@!eeJaftDXqEBlJmy"
 
 discord:
   token: "Nzg0MDk4OTgyMDg2NDQzMDE4.GDlwFz.OmB4ZMp6gwf8ZkJN_bqYqbe_Wzq9QRRzsAU1xU"
+  guild_id: "1404292846340542554"
   queue_role_name: "Queue"
 # Configuración del servidor
 server:
@@ -17,7 +18,7 @@ server:
 # Comandos para acceder a los servidores
 commands:
   ranked: "/server keke1"
-  mixed: "/server mixed"
+  mixed: "autochivo"
 
 # Configuración del sistema de compras
 store:
@@ -34,10 +35,7 @@ messages:
 
     Servidores disponibles:
     - Ranked: `/server keke1`
-    - Mixed: `/server mixed`
+    - CTW Rankeds: `Próximamente`
 
   ip_info: |
     IP del Servidor: `keke.sparked.network`
-
-    Para jugar Ranked: `/server keke1`
-    Para jugar Mixed: `/server mixed`
