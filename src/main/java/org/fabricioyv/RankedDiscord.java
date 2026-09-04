@@ -16,6 +16,11 @@ public final class RankedDiscord extends JavaPlugin {
         // Plugin startup logic
         saveDefaultConfig();
 
+        if (!isConfigComplete()) {
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+
         DBManager = new DBManager();
         boolean dbOk = DBManager.initializeDatabase(
                 getConfig().getString("database.host"),
@@ -54,6 +59,36 @@ public final class RankedDiscord extends JavaPlugin {
             DBManager.close();
         }
         getLogger().info("RankedDiscord deshabilitado correctamente!");
+    }
+
+    /**
+     * Verifica que config.yml haya sido completado (sin placeholders sin rellenar)
+     * antes de intentar conectar a la base de datos o a Discord.
+     */
+    private boolean isConfigComplete() {
+        String[][] required = {
+                {"database.host", getConfig().getString("database.host", "")},
+                {"database.database", getConfig().getString("database.database", "")},
+                {"database.username", getConfig().getString("database.username", "")},
+                {"database.password", getConfig().getString("database.password", "")},
+                {"discord.token", getConfig().getString("discord.token", "")},
+        };
+
+        boolean complete = true;
+        for (String[] entry : required) {
+            String key = entry[0];
+            String value = entry[1];
+            if (value == null || value.trim().isEmpty() || value.trim().toUpperCase().startsWith("PUT_")) {
+                getLogger().severe("config.yml -> " + key + " no está configurado. Completalo antes de iniciar el plugin.");
+                complete = false;
+            }
+        }
+
+        if (!complete) {
+            getLogger().severe("RankedDiscord deshabilitado: faltan datos en config.yml (ver mensajes arriba).");
+        }
+
+        return complete;
     }
 
     public DBManager getDatabaseManager() {
