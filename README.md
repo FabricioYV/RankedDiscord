@@ -5,6 +5,7 @@
 **Puente entre tu servidor de Minecraft y Discord.**
 Verificación de cuentas, comandos de administración, bienvenidas — el complemento social de [RankedMinecraft](https://github.com/FabricioYV/RankedMinecraft).
 
+[![Build](https://github.com/FabricioYV/RankedDiscord/actions/workflows/build.yml/badge.svg)](https://github.com/FabricioYV/RankedDiscord/actions/workflows/build.yml)
 [![Licencia](https://img.shields.io/badge/licencia-GPLv3-blue.svg)](LICENSE)
 [![Java](https://img.shields.io/badge/java-15%2B-orange.svg)](pom.xml)
 [![Requiere](https://img.shields.io/badge/requiere-RankedMinecraft-6e40c9.svg)](https://github.com/FabricioYV/RankedMinecraft)
@@ -45,6 +46,10 @@ flowchart LR
 **👉 Para instalar el sistema completo (los dos plugins + la base de datos compartida), seguí [SETUP.md](https://github.com/FabricioYV/RankedMinecraft/blob/master/SETUP.md)** en el repo de RankedMinecraft.
 
 ## 🚀 Instalación
+
+**Opción rápida:** descargá el `.jar` ya compilado desde la [última Release](https://github.com/FabricioYV/RankedDiscord/releases/latest).
+
+**Compilar vos mismo:**
 
 ```bash
 git clone https://github.com/FabricioYV/RankedDiscord.git
