@@ -8,37 +8,6 @@ database:
 
 discord:
   token: "PUT_TOKEN_HERE"
-  guild_id: "PUT_GUILD_ID_HERE"
   queue_role_name: "Queue"
   # Discord user ID con permiso para comandos administrativos destructivos (ej. reset de stats)
   super-admin-user-id: "PUT_USER_ID_HERE"
-
-# Configuración del servidor
-server:
-  name: "PUT_SERVER_NAME_HERE"
-  ip: "PUT_SERVER_IP_HERE"
-
-# Comandos para acceder a los servidores
-commands:
-  ranked: "/server PUT_SERVER_ALIAS_HERE"
-  mixed: "PUT_SERVER_ALIAS_HERE"
-
-# Configuración del sistema de compras
-store:
-  enabled: true
-  check-interval: 30
-  max-purchases-per-cycle: 10
-
-# Mensajes informativos (SIN EMOJIS)
-messages:
-  server_info: |
-    **Información del Servidor**
-
-    IP del Servidor: `PUT_SERVER_IP_HERE`
-
-    Servidores disponibles:
-    - Ranked: `/server PUT_SERVER_ALIAS_HERE`
-    - CTW Rankeds: `Próximamente`
-
-  ip_info: |
-    IP del Servidor: `PUT_SERVER_IP_HERE`
