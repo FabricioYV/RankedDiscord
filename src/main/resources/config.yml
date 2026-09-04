@@ -11,3 +11,15 @@ discord:
   queue_role_name: "Queue"
   # Discord user ID con permiso para comandos administrativos destructivos (ej. reset de stats)
   super-admin-user-id: "PUT_USER_ID_HERE"
+
+# Usado por los comandos !ip, !info, !instrucciones5v5, !instrucciones8v8
+server:
+  name: "PUT_SERVER_NAME_HERE"
+  ip: "PUT_SERVER_IP_HERE"
+  ip-5v5: "PUT_SERVER_IP_HERE"
+  ip-8v8: "PUT_SERVER_IP_HERE"
+
+# Comandos que le decís al jugador para unirse a cada modo (usados en !ip y !info)
+commands:
+  ranked: "/server PUT_ALIAS_HERE"
+  mixed: "/server PUT_ALIAS_HERE"
