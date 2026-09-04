@@ -1,0 +1,13 @@
+# Configuración de la base de datos
+database:
+  host: "PUT_DB_HOST_HERE"
+  port: 3306
+  database: "PUT_DB_NAME_HERE"
+  username: "PUT_DB_USERNAME_HERE"
+  password: "PUT_DB_PASSWORD_HERE"
+
+discord:
+  token: "PUT_TOKEN_HERE"
+  queue_role_name: "Queue"
+  # Discord user ID con permiso para comandos administrativos destructivos (ej. reset de stats)
+  super-admin-user-id: "PUT_USER_ID_HERE"
