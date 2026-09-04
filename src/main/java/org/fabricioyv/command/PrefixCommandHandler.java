@@ -2,7 +2,6 @@ package org.fabricioyv.command;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.utils.FileUpload;
 import org.fabricioyv.RankedDiscord;
 
 import java.awt.*;
@@ -36,9 +35,6 @@ public class PrefixCommandHandler {
             case "paypal":
             case "apoyo":
                 handleDonationCommand(event);
-                break;
-            case "yape":
-                handleYapeCommand(event);
                 break;
             case "stats":
                 handleStatsCommand(event, args);
@@ -183,57 +179,6 @@ public class PrefixCommandHandler {
                 .setTimestamp(java.time.Instant.now());
 
         event.getChannel().sendMessageEmbeds(embed.build()).queue();
-    }
-
-    private void handleYapeCommand(MessageReceivedEvent event) {
-        try {
-            // Crear embed con información de Yape
-            EmbedBuilder embed = new EmbedBuilder()
-                    .setTitle("📱 Yape - ¡Apoya al Servidor!")
-                    .setColor(new Color(158, 0, 93)) // Color morado de Yape
-                    .setDescription("¡Gracias por querer apoyar nuestro servidor con Yape! 🇵🇪")
-                    .addField("💜 **¿Cómo donar con Yape?**",
-                            "1️⃣ Abre tu aplicación Yape\n" +
-                                    "2️⃣ Escanea el código QR de la imagen\n" +
-                                    "3️⃣ Ingresa el monto que desees donar\n" +
-                                    "4️⃣ Confirma la transferencia", false)
-                    .addField("🎁 **Tu apoyo nos ayuda con:**",
-                            "• Mantenimiento de servidores\n" +
-                                    "• Mejoras y nuevas características\n" +
-                                    "• Eventos especiales\n" +
-                                    "• Para que CyDarkCat pueda comer 🐱", false)
-                    .addField("📝 **Nota importante**",
-                            "Si realizas una donación por Yape, puedes contactar al staff para recibir tu rol de Donador especial ❤️", false)
-                    .setFooter("¡Gracias por tu apoyo desde Perú! 🇵🇪", null)
-                    .setTimestamp(java.time.Instant.now());
-
-            // Obtener la imagen del QR de Yape desde los recursos
-            var inputStream = getClass().getClassLoader().getResourceAsStream("yape.png");
-
-            if (inputStream != null) {
-                // Si existe la imagen, enviarla con el embed
-                embed.setImage("attachment://yape.png");
-                event.getChannel().sendMessageEmbeds(embed.build())
-                        .addFiles(FileUpload.fromData(inputStream, "yape.png"))
-                        .queue();
-            } else {
-                // Si no existe la imagen, enviar solo el embed con instrucciones
-                embed.addField("⚠️ **Código QR no disponible**",
-                        "Por favor contacta al staff para obtener el código QR de Yape.", false);
-                event.getChannel().sendMessageEmbeds(embed.build()).queue();
-
-                // Log para el administrador
-                System.err.println("❌ Archivo yape.png no encontrado en resources/");
-            }
-
-        } catch (Exception e) {
-            // En caso de error, enviar mensaje de error
-            event.getChannel().sendMessage("❌ **Error al cargar el código QR de Yape.** " +
-                    "Por favor contacta al staff para obtener la información de donación.").queue();
-
-            System.err.println("❌ Error en handleYapeCommand: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 
     private void handleStatsCommand(MessageReceivedEvent event, String[] args) {
