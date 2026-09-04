@@ -46,43 +46,55 @@ public class PrefixCommandHandler {
     }
 
     private void handleIpCommand(MessageReceivedEvent event) {
+        String ip = plugin.getConfig().getString("server.ip", "PUT_SERVER_IP_HERE");
+        String rankedCmd = plugin.getConfig().getString("commands.ranked", "PUT_RANKED_COMMAND_HERE");
+        String mixedCmd = plugin.getConfig().getString("commands.mixed", "PUT_MIXED_COMMAND_HERE");
+        String serverName = plugin.getConfig().getString("server.name", "el servidor");
+
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle("🌐 IP del Servidor")
                 .setColor(new Color(0, 255, 0))
-                .setDescription("**IP del Servidor:** `keke.sparked.network`\n\n" +
-                        "**Para jugar Ranked:** `/server keke1`\n" +
-                        "**Para jugar Mixed:** `/server mixed`")
-                .setFooter("Keke Network • Únete ahora!", null)
+                .setDescription("**IP del Servidor:** `" + ip + "`\n\n" +
+                        "**Para jugar Ranked:** `" + rankedCmd + "`\n" +
+                        "**Para jugar Mixed:** `" + mixedCmd + "`")
+                .setFooter(serverName + " • Únete ahora!", null)
                 .setTimestamp(java.time.Instant.now());
 
         event.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     private void handleInfoCommand(MessageReceivedEvent event) {
+        String ip = plugin.getConfig().getString("server.ip", "PUT_SERVER_IP_HERE");
+        String rankedCmd = plugin.getConfig().getString("commands.ranked", "PUT_RANKED_COMMAND_HERE");
+        String mixedCmd = plugin.getConfig().getString("commands.mixed", "PUT_MIXED_COMMAND_HERE");
+        String serverName = plugin.getConfig().getString("server.name", "el servidor");
+
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle("🎮 Información del Servidor")
                 .setColor(new Color(255, 215, 0))
-                .setDescription("¡Bienvenido a **Keke Network**!")
-                .addField("🌐 IP del Servidor", "`keke.sparked.network`", false)
-                .addField("🏆 Servidor Ranked", "`/server keke1`", true)
-                .addField("🎯 Servidor Mixed", "`/server mixed`", true)
+                .setDescription("¡Bienvenido a **" + serverName + "**!")
+                .addField("🌐 IP del Servidor", "`" + ip + "`", false)
+                .addField("🏆 Servidor Ranked", "`" + rankedCmd + "`", true)
+                .addField("🎯 Servidor Mixed", "`" + mixedCmd + "`", true)
                 .addField("📈 Características",
                         "• Sistema de ELO competitivo\n" +
                                 "• Matchmaking balanceado\n" +
                                 "• Rankings y estadísticas\n" +
                                 "• Modo Mixed para práctica", false)
-                .setFooter("Keke Network • ¡Disfruta del mejor PvP competitivo!", null)
+                .setFooter(serverName + " • ¡Disfruta del mejor PvP competitivo!", null)
                 .setTimestamp(java.time.Instant.now());
 
         event.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     private void handleInstrucciones8v8Command(MessageReceivedEvent event) {
+        String ip8v8 = plugin.getConfig().getString("server.ip-8v8", "PUT_SERVER_IP_HERE");
+
         EmbedBuilder embed = new EmbedBuilder()
-                .setTitle("⚡ Instrucciones - Keke 8vs8")
+                .setTitle("⚡ Instrucciones - 8vs8")
                 .setColor(new Color(231, 76, 60))
-                .setDescription("**IP:** `keke2.sparked.network`\n\n" +
-                        "**Para las Keke 8vs8, serán solamente de CTW (Capture The Wool)**\n" +
+                .setDescription("**IP:** `" + ip8v8 + "`\n\n" +
+                        "**Las partidas 8vs8 serán solamente de CTW (Capture The Wool)**\n" +
                         "Bot diferente = MMR separado de la cola 5v5\n\n" +
                         "**📋 Pasos para jugar:**")
                 .addField("1️⃣ **Unirse a la Cola**",
@@ -98,7 +110,7 @@ public class PrefixCommandHandler {
                                 "• Inicia el pickeo de jugadores para formar equipos\n" +
                                 "• **Sugerencia:** Los capitanes pueden guiarse de los roles seleccionados por el jugador", false)
                 .addField("4️⃣ **Inicio de Partida**",
-                        "• Únete al servidor `keke2.sparked.network`\n" +
+                        "• Únete al servidor `" + ip8v8 + "`\n" +
                                 "• **Canal \"Equipo 1\"** → **MC \"Team 1\"**\n" +
                                 "• **Canal \"Equipo 2\"** → **MC \"Team 2\"**\n" +
                                 "• El host iniciará la partida en el servidor", false)
@@ -117,10 +129,12 @@ public class PrefixCommandHandler {
     }
 
     private void handleInstrucciones5v5Command(MessageReceivedEvent event) {
+        String ip5v5 = plugin.getConfig().getString("server.ip-5v5", "PUT_SERVER_IP_HERE");
+
         EmbedBuilder embed = new EmbedBuilder()
-                .setTitle("🎯 Instrucciones - Keke 5vs5")
+                .setTitle("🎯 Instrucciones - 5vs5")
                 .setColor(new Color(155, 89, 182))
-                .setDescription("**IP:** `keke1.sparked.network`\n\n" +
+                .setDescription("**IP:** `" + ip5v5 + "`\n\n" +
                         "**📋 Pasos para jugar:**")
                 .addField("1️⃣ **Conectarse al Servidor**",
                         "Para unirte a cola primero debes estar en el servidor de Minecraft.", false)
