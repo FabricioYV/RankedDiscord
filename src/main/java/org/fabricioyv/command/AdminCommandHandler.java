@@ -350,9 +350,9 @@ public class AdminCommandHandler {
             return;
         }
 
-        // Verificar si el usuario es el ID específico autorizado
-        String authorizedUserId = "539951104960757762";
-        if (!event.getAuthor().getId().equals(authorizedUserId)) {
+        // Verificar si el usuario es el ID específico autorizado (config.yml -> discord.super-admin-user-id)
+        String authorizedUserId = plugin.getConfig().getString("discord.super-admin-user-id", "");
+        if (authorizedUserId.isEmpty() || !event.getAuthor().getId().equals(authorizedUserId)) {
             event.getChannel().sendMessage("❌ **No tienes autorización para usar este comando**").queue();
             return;
         }
