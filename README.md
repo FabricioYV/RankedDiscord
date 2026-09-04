@@ -1,33 +1,93 @@
-# RankedDiscord
+<div align="center">
 
-Plugin de Minecraft (Bukkit/Spigot/Paper) que conecta el servidor con Discord: verificación de cuentas, comandos administrativos vía Discord, y mensajes de bienvenida personalizados.
+# 💬 RankedDiscord
 
-Trabaja junto a [RankedMinecraft](https://github.com/FabricioYV/RankedMinecraft) (matchmaking, ELO/MMR), compartiendo la misma base de datos MySQL en la tabla `ranked_players`. **Para instalar el sistema completo (ambos plugins), seguí la [guía de instalación](https://github.com/FabricioYV/RankedMinecraft/blob/master/SETUP.md) en el repo de RankedMinecraft.**
+**Puente entre tu servidor de Minecraft y Discord.**
+Verificación de cuentas, comandos de administración, bienvenidas — el complemento social de [RankedMinecraft](https://github.com/FabricioYV/RankedMinecraft).
 
-## Qué hace
+[![Licencia](https://img.shields.io/badge/licencia-GPLv3-blue.svg)](LICENSE)
+[![Java](https://img.shields.io/badge/java-15%2B-orange.svg)](pom.xml)
+[![Requiere](https://img.shields.io/badge/requiere-RankedMinecraft-6e40c9.svg)](https://github.com/FabricioYV/RankedMinecraft)
+[![Discord](https://img.shields.io/badge/bot-JDA-5865F2.svg?logo=discord&logoColor=white)](https://github.com/discord-jda/JDA)
 
-- `/verify` (en el juego): genera un código de verificación que vincula la cuenta de Minecraft con Discord.
-- `/setwelcome` (en el juego): permite a jugadores elegibles personalizar su mensaje de bienvenida.
-- Bot de Discord con comandos de prefijo (`!ip`, `!info`, `!instrucciones5v5`, `!instrucciones8v8`, `!donacion`, `!stats`) y comandos de administrador (ajustar ELO/wins/losses, resetear estadísticas).
-- Mensaje de bienvenida al primer join de un jugador.
+[Instalación](#-instalación) • [Comandos](#-comandos) • [Configuración](#%EF%B8%8F-configuración) • [Sistema completo](#-parte-de-un-sistema)
 
-## Configuración
+</div>
 
-Al arrancar por primera vez se genera `plugins/RankedDiscord/config.yml`. Completá:
+---
 
-- `database.host/port/database/username/password` — la **misma base de datos** que usa RankedMinecraft.
-- `discord.token` — token del bot (Discord Developer Portal).
-- `discord.queue_role_name` — nombre del rol `@Queue` en tu servidor de Discord.
-- `discord.super-admin-user-id` — tu ID de usuario de Discord, único autorizado para `/resetallstats`.
+## ✨ Qué hace
 
-Si dejás algún campo con su placeholder `PUT_..._HERE` de fábrica, el plugin te avisa en consola exactamente qué falta y se deshabilita solo, en vez de fallar con errores confusos de conexión.
+| | |
+|---|---|
+| 🔗 **Verificación** | `/verify` en el juego vincula la cuenta de Minecraft con Discord por código |
+| 🛡️ **Admin vía Discord** | Ajustar ELO/wins/losses o resetear estadísticas sin tocar la base de datos a mano |
+| 👋 **Bienvenidas** | Mensaje personalizable al primer join de cada jugador |
+| ℹ️ **Info del servidor** | Comandos de prefijo (`!ip`, `!info`, `!instrucciones5v5`, `!instrucciones8v8`, `!stats`) totalmente configurables |
 
-## Build
+## 🧩 Parte de un sistema
+
+RankedDiscord no funciona solo — es el complemento de **[RankedMinecraft](https://github.com/FabricioYV/RankedMinecraft)**, que corre en el servidor y maneja matchmaking, picks y cálculo de ELO/MMR. Ambos plugins leen y escriben **la misma tabla `ranked_players`** en una única base de datos MySQL.
+
+```mermaid
+flowchart LR
+    Jugador((🎮 Jugador))
+    RM["RankedMinecraft<br/>matchmaking · ELO/MMR"]
+    RD["RankedDiscord<br/>verificación · admin"]
+    DB[("MySQL<br/>ranked_players")]
+
+    Jugador -->|partidas| RM
+    Jugador -->|"/verify"| RD
+    RM -->|resultados, ELO| DB
+    RD -->|verificación, stats| DB
+```
+
+**👉 Para instalar el sistema completo (los dos plugins + la base de datos compartida), seguí [SETUP.md](https://github.com/FabricioYV/RankedMinecraft/blob/master/SETUP.md)** en el repo de RankedMinecraft.
+
+## 🚀 Instalación
 
 ```bash
+git clone https://github.com/FabricioYV/RankedDiscord.git
+cd RankedDiscord
 mvn clean package
 ```
 
-## Licencia
+Copiá el `.jar` de `target/` a `plugins/`, iniciá una vez para generar `config.yml`, apagalo y completalo (ver abajo). Si dejás algún campo con su placeholder `PUT_..._HERE` de fábrica, el plugin te avisa en consola exactamente qué falta y se deshabilita solo, en vez de fallar con errores confusos de conexión.
 
-GPL-3.0 — ver [LICENSE](LICENSE).
+## ⚙️ Configuración
+
+| Clave | Qué es |
+|---|---|
+| `database.host/port/database/username/password` | La **misma base de datos** que usa RankedMinecraft |
+| `discord.token` | Token del bot (Discord Developer Portal) |
+| `discord.queue_role_name` | Nombre del rol `@Queue` en tu servidor |
+| `discord.super-admin-user-id` | Tu ID de Discord, único autorizado para `/resetallstats` |
+| `server.name` / `server.ip` | Nombre e IP mostrados en `!ip` / `!info` |
+| `server.ip-5v5` / `server.ip-8v8` | IPs específicas por modo, usadas en las instrucciones |
+| `commands.ranked` / `commands.mixed` | Comandos que le decís al jugador para unirse a cada modo |
+
+## 📜 Comandos
+
+**En el juego**
+
+| Comando | Descripción |
+|---|---|
+| `/verify` | Genera un código para vincular tu cuenta con Discord |
+| `/setwelcome <mensaje>` | Personaliza tu mensaje de bienvenida (si sos elegible) |
+
+**En Discord (prefijo `!`)**
+
+| Comando | Descripción |
+|---|---|
+| `!ip`, `!info` | Info y IP del servidor |
+| `!instrucciones5v5`, `!instrucciones8v8` | Instrucciones por modo |
+| `!donacion` / `!donar` / `!paypal` / `!apoyo` | Info de donaciones |
+| `!stats <jugador>` | Estadísticas de un jugador |
+
+**Admin (Discord, requiere `discord.super-admin-user-id`)**
+
+Ajuste manual de ELO/wins/losses y `/resetallstats`.
+
+## 📄 Licencia
+
+[GPL-3.0](LICENSE) — Creado por [FabricioYV](https://github.com/FabricioYV).
